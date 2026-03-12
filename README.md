@@ -26,7 +26,7 @@ source ./.venv/Scripts/activate
 
 Instale as dependencias.
 ```zsh
-pip install
+pip install -r ./requirements.txt
 ```
 
 Execute o arquivo `main.py`, direto da raíz do projeto.

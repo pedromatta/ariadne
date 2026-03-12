@@ -45,7 +45,7 @@ O código está dividido em 4 diretórios de scripts e a raíz, o propósito ger
 | Diretório | Propósito                                                                                                                  |
 | :---:     | :---                                                                                                                       |
 | ./        | Na raíz se encontram o arquivo Fidedignas de fonte de dados e o arquivo main.py que serve como orquestrador da execução.   |
-| data/     | Estruturas utilizadas no código: Workflow e Log. Além da classe DataHandler, que gerencia a leitura do arquivo de fidedignas |
-| utils/    | Funções utilitárias: Definição do menu cli para escolher o workflow e setup do navegador Edge.                             |
-| config/   | Armazenamento e leitura das variáveis de ambiente.                                                                         |
-| pages/    | Definição das páginas da aplicação, todas as páginas herdam os métodos básicos da classe BasePage e implementam navegações específicas internamente |
+| [data/](./data/)     | Estruturas utilizadas no código: Workflow e Log. Além da classe DataHandler, que gerencia a leitura do arquivo de fidedignas |
+| [utils/](./utils/)    | Funções utilitárias: Definição do menu cli para escolher o workflow e setup do navegador Edge.                             |
+| [config/](./config/)   | Armazenamento e leitura das variáveis de ambiente.                                                                         |
+| [pages/](./pages/)    | Definição das páginas da aplicação, todas as páginas herdam os métodos básicos da classe BasePage e implementam navegações específicas internamente |

@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
+import time
 from selenium.common.exceptions import TimeoutException
 
 class ContaPage(BasePage):
@@ -18,6 +19,7 @@ class ContaPage(BasePage):
     self.click(self.SEM_IDENTIFICACAO_RAD)
     self.enter_text(self.KEY_INPUT, identifier)
     self.js_click(self.PESQUISAR_BTN)
+    time.sleep(1)
 
   def select_first_result(self):
     """
@@ -43,3 +45,6 @@ class ContaPage(BasePage):
       return False # Nao conseguiu clicar em nenhuma linha
     except TimeoutException:
       return False # Nenhum resultado apareceu
+    finally:
+      time.sleep(1)
+

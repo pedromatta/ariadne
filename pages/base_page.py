@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from config import settings
+import time
 
 class BasePage:
 
@@ -80,3 +81,5 @@ class BasePage:
       return False # Nao conseguiu clicar em nenhuma linha
     except TimeoutException:
       return False # Nenhum resultado apareceu
+    finally:
+      time.sleep(1)

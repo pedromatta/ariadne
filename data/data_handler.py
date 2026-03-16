@@ -22,8 +22,19 @@ class DataHandler:
     """
     Limpa o dataframe, explode as linhas delimitadas e retorna um dicionario
     """
+    # Remove todos os registros que não foram atualizados até 2026
+    mask = (
+      df['DATA_ALTERACAO_DOS_DADOS']
+      .astype(str) # Garante que eh um texto
+      .str.split('/') # Divide em uma lista de strings
+      .str[-1] # Pega o ultimo item da lista
+      .str.strip() # Remove todos os espacos em branco
+      .astype(int) > 20260000
+    )
+
+    df_masked = df[mask]
     # Gera um subset
-    subset = df.iloc[skip:].copy()
+    subset = df_masked.iloc[skip:].copy()
     subset = subset[[col_codigo_lotacao, col_key]].dropna(subset=[col_key])
     
     # Separa as chaves que estão delimitadas por '/'

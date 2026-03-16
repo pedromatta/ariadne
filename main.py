@@ -40,8 +40,6 @@ def main():
 
     conta_page = ContaPage(driver, workflow.route, workflow.input_id)
     conta_vincular_page = ContaVincularPage(driver)
-    solucionar_integracao_page = SolucionarIntegracaoPage(driver)
-    solucionar_integracao_editar_page = SolucionarIntegracaoEditarPage(driver)
 
     for identifier, codigo_lotacao in conta_dict.items():
 
@@ -64,25 +62,19 @@ def main():
       # Registra que o registro esta pendente de vinculacao
       log_current.registro_a_vincular = True
 
-      # Navegamos ate a pagina de integracao
-      solucionar_integracao_page.navigate_to()
-      solucionar_integracao_page.search_codigo_lotacao(codigo_lotacao)
-      codigo_lotacao_encontrado = solucionar_integracao_page.select_first_result()
+      conta_vincular_page.search_unidade(codigo_lotacao)
+      unidade_encontrada = conta_vincular_page.select_first_result()
 
-      if not codigo_lotacao_encontrado:
+      if not unidade_encontrada:
         log_data.append(log_current)
         continue
 
-      # Registra que a unidade está vinculada
-      log_current.unidade_vinculada = True
+      # Registra que a unidade foi encontrada
+      log_current.unidade_encontrada = True
 
-      name = solucionar_integracao_editar_page.get_name()
-      conta_page.navigate_to()
-      conta_page.search_identifier(identifier)
+      conta_vinculada = conta_vincular_page.gravar_vinculacao()
 
-      conta_vinculada = conta_vincular_page.executar_vinculo(name)
-
-      if not conta_vinculada :
+      if not conta_vinculada:
         log_data.append(log_current)
         continue
 
@@ -90,11 +82,13 @@ def main():
       log_current.conta_vinculada = True
       log_data.append(log_current)
 
+    print("Operação concluída com sucesso!")
   finally:
     # Salva o arquivo de log
     df_log = pd.DataFrame([log.to_dict() for log in log_data])
-    log_path = f"log/{workflow.nome} - {datetime.now().strftime('%Y%m%d%H%M')}.csv"
+    log_path = f"logs/{workflow.route}-{datetime.now().strftime('%Y%m%d%H%M')}.csv"
     df_log.to_csv(log_path, index=False, sep=';')
+    print("log salvo em: ", log_path)
     driver.quit()
 
 if __name__ == "__main__":

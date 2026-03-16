@@ -1,3 +1,4 @@
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from selenium.common.exceptions import TimeoutException
@@ -18,6 +19,8 @@ class SolucionarIntegracaoPage(BasePage):
   def search_codigo_lotacao(self, codigo_lotacao):
     """Procura registro pelo codigo de lotacao"""
     self.click(self.REGISTROS_DE_INTEGRACAO_RAD)
+    self.wait.until(EC.element_to_be_clickable(self.REGISTROS_ASSOCIADOS_RAD))
+    self.click(self.REGISTROS_ASSOCIADOS_RAD)
     self.enter_text(self.CODIGO_CENTRO_CUSTO_INPUT, codigo_lotacao)
     self.js_click(self.PESQUISAR_BTN)
 

@@ -12,10 +12,19 @@ from pages.solucionar_integracao_editar_page import SolucionarIntegracaoEditarPa
 from pages.conta_page import ContaPage
 from pages.conta_vincular_page import ContaVincularPage
 
+def is_test():
+  test = input("Você deseja realmente realizar as vinculações? s/N: ")
+  if test in ['s','S', 'y', 'Y']:
+    print("Realizando as vinculações...")
+    return False
+  print("Realizando os testes...")
+  return True
 
 def main():
 
   workflow = show_menu()
+
+  var_is_test = is_test()
 
   handler = DataHandler(input_file_path="./fidedignas.xlsx")
   df_fidedignas = handler.load_fidedignas()
@@ -72,7 +81,7 @@ def main():
       # Registra que a unidade foi encontrada
       log_current.unidade_encontrada = True
 
-      conta_vinculada = conta_vincular_page.gravar_vinculacao()
+      conta_vinculada = conta_vincular_page.gravar_vinculacao(var_is_test)
 
       if not conta_vinculada:
         log_data.append(log_current)
@@ -86,7 +95,7 @@ def main():
   finally:
     # Salva o arquivo de log
     df_log = pd.DataFrame([log.to_dict() for log in log_data])
-    log_path = f"logs/{workflow.route}-{datetime.now().strftime('%Y%m%d%H%M')}.csv"
+    log_path = f"logs/{workflow.codigo}-{datetime.now().strftime('%Y%m%d%H%M')}.csv"
     df_log.to_csv(log_path, index=False, sep=';')
     print("log salvo em: ", log_path)
     driver.quit()

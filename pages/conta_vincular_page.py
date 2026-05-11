@@ -9,6 +9,7 @@ class ContaVincularPage(BasePage):
   UNIDADE_BTN = (By.ID, "detalhe-1-nomeUnidade")
   CODIGO_LOTACAO_INPUT = (By.XPATH, "//input[@title='Codigo de Lotacao']")
   PESQUISAR_BTN = (By.ID, "pesquisar")
+  GRAVAR_BTN = (By.ID, "gravar")
 
   def __init__(self, driver):
       super().__init__(driver)
@@ -20,9 +21,13 @@ class ContaVincularPage(BasePage):
     self.click(self.PESQUISAR_BTN)
     time.sleep(1)
 
-  def gravar_vinculacao(self):
+  def gravar_vinculacao(self, is_test):
     try:
-      print("Olha que eu gravo, hein?")
+      if(is_test):
+        print("Olha que eu gravo, hein?")
+        return False
+
+      self.click(self.GRAVAR_BTN)
       return True
     except:
       return False

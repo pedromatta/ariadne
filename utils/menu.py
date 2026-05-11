@@ -5,20 +5,31 @@ from data.workflow import Workflow
 WORKFLOWS = [
   Workflow(
     id = "1",
-    nome = "Conta de Agua",
+    codigo = "contaagua-matricula",
+    nome = "Conta de Agua (Matricula)",
     col_key = "COPASA_MATRICULA",
     route = "contaagua",
     input_id = "matricula",
   ),
   Workflow(
     id = "2",
+    codigo = "contaagua-hidrometro",
+    nome = "Conta de Agua (Hidrometro)",
+    col_key = "COPASA_MATRICULA",
+    route = "contaagua",
+    input_id = "codHidrometro",
+  ),
+  Workflow(
+    id = "3",
+    codigo = "contaenergia",
     nome = "Conta de Energia",
     col_key = "NUMERO_DA_INSTALACAO",
     route = "contaenergia",
     input_id = "numero_instalacao"
   ),
   Workflow(
-    id = "3",
+    id = "4",
+    codigo = "contatelefonia",
     nome = "Conta de Telefonia",
     col_key = "TELEFONES_FIXOS_DA_UNIDADE",
     route = "contatelefonia",

@@ -51,5 +51,8 @@ class DataHandler:
     df_clean[col_key] = df_clean[col_key].str.strip()
     df_clean[col_codigo_lotacao] = df_clean[col_codigo_lotacao].str.strip()
 
+    # Remove registros que sobreviveram as checagens anteriores mas possuem uma string vazia na col_key
+    df_clean = df_clean[df_clean[col_key] != '']
+
     # Retorna o dicionário
     return dict(zip(df_clean[col_key], df_clean[col_codigo_lotacao]))
